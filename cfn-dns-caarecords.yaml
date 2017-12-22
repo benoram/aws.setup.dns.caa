@@ -1,17 +1,10 @@
   AWSTemplateFormatVersion: "2010-09-09"
-  Parameters:
-    HostedZoneId: 
-      Type: AWS::Route53::HostedZone::Id
-      Description: Select a zone
-    DNSRecordName:
-      Type: String
-      Description: The Name value to use in the record set
   Resources: 
     CAARecord:
       Type: AWS::Route53::RecordSet
       Properties:
-        HostedZoneId: !Ref HostedZoneId
-        Name: !Ref DNSRecordName
+        HostedZoneId: !ImportValue PrimaryHostedZoneId
+        Name: !Join [ ., [ !ImportValue PrimaryDomain, '']] 
         Type: CAA
         TTL: '3600'
         ResourceRecords:
