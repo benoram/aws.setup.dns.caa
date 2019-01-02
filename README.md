@@ -1,14 +1,12 @@
-# DNS CAA Record Setup
-Setup CAA records on zone
+# cfn-dns-caa
+CloudFormation script caa records for a given Route53 Zone. The template supplies default CAA records to support AWS Certificate Manager (ACM)
 
-## Prerequisites
-[AWS CLI](https://docs.aws.amazon.com/cli/latest/reference/)
+Reference: https://en.wikipedia.org/wiki/DNS_Certification_Authority_Authorization
 
-## Setup
+## Parameters
 
-```
-TEMP_DOMAINNAME='Domain.com'
-TEMP_ZONE_ID='ZQ12345'
+### ZoneId
+The Route53 Zone to write CAA records to
 
-aws cloudformation create-stack --stack-name aPrimaryDNSCAARecords --template-body file://./cfn-dns-caarecords.yaml --region us-east-1  --parameters ParameterKey=Domain,ParameterValue=$TEMP_DOMAINNAME ParameterKey=ZoneId,ParameterValue=$TEMP_ZONE_ID
-```
+### DomainName
+The domain name for the zone

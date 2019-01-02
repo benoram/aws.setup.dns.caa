@@ -1,20 +1,24 @@
   AWSTemplateFormatVersion: "2010-09-09"
+
   Description: Setup DNS CAA Records to allow only AWS to generate certs
+
   Parameters:
     ZoneId: 
+      Type: AWS::Route53::HostedZone::Id
+      Description: Enter a Route 53 ZoneId to add CAA records to
+
+    DomainName: 
       Type: String
-      Description: Enter a zone to add CAA records to
-    Domain: 
-      Type: String
-      Description: Enter domain to use for the CAA records
+      Description: Enter domain name to use for the CAA records
+
   Resources: 
     CAARecord:
       Type: AWS::Route53::RecordSet
       Properties:
         HostedZoneId: !Ref ZoneId
-        Name: !Join [ ., [ !Ref Domain, '']] 
+        Name: !Join [ ., [ !Ref DomainName, '']] 
         Type: CAA
-        TTL: '3600'
+        TTL: 3600
         ResourceRecords:
         - '0 issue "amazon.com;"'
         - '0 issue "amazontrust.com;"'
